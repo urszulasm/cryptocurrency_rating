@@ -37,4 +37,4 @@ def merge_dfs(list_of_dfs: List[DataFrame]) -> DataFrame:
     df_combined = pd.concat(dfs_closing_value, join='outer', axis=1)
 
     # dropping NaN values
-    return df_combined.dropna(inplace=True)
+    return df_combined.dropna()
