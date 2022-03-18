@@ -12,6 +12,7 @@ def data_preprocessing(ticker: str) -> DataFrame:
 
     # check for null values
     print(yf_df.isnull().sum())
+    yf_df.dropna(inplace=True)
 
     # converting the Date column to datetime type
     yf_df['Date'] = pd.to_datetime(yf_df['Date'])
