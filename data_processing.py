@@ -43,29 +43,36 @@ def merge_dfs(list_of_dfs: List[DataFrame]) -> DataFrame:
 
 
 def calculate_pct_change(df: DataFrame) -> DataFrame:
-
-    # get column names
-    column_names = df.columns
+    # get original df column names
+    df_colum_names = df.columns
+    df_copy = df.copy()
 
     # create new cols with % change based on previous day and return df w/o 1st row (with NaN values)
-    for name in column_names:
-        df[f'{name}_return_daily'] = df[name].pct_change(1)  # 1 for ONE day look back
-    return df.iloc[1:, :]
+    for name in df_colum_names:
+        df_copy[f'{name}_return_daily'] = df_copy[name].pct_change(1)  # 1 for ONE day look back
+
+    # drop original columns
+    df_copy.drop(df_colum_names, axis=1, inplace=True)
+
+    return df_copy.iloc[1:, :]
 
 
 def calculate_cumulative_return(df: DataFrame) -> DataFrame:
 
-    # get col names which contain 'return_daily' in text
-    pct_change_cols = [name for name in df.columns if 'return_daily' in name]
+    pct_change_cols = df.columns
+    df_copy = df.copy()
 
     # create new cols with calculated cumulative daily returns using cumprod func
     for name in pct_change_cols:
-        df[f'{name}_1'] = (1 + df[name]).cumprod() - 1
+        df_copy[f'{name}_1'] = (1 + df_copy[name]).cumprod() - 1
 
     # replace 'daily_1' in col name with 'cumulative'
-    df.columns = [re.sub('daily_1', 'cumulative', c) for c in df.columns]
+    df_copy.columns = [re.sub('daily_1', 'cumulative', c) for c in df_copy.columns]
 
-    return df
+    # drop original columns
+    df_copy.drop(pct_change_cols, axis=1, inplace=True)
+
+    return df_copy
 
 
 
