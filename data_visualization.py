@@ -1,5 +1,4 @@
 import plotly.express as px
-from dash import Dash, dcc, html, Input, Output
 from pandas import DataFrame
 
 

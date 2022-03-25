@@ -1,9 +1,8 @@
+import re
 from typing import List
 
-import numpy as np
 import pandas as pd
 from pandas import DataFrame
-import re
 
 
 def data_preprocessing(ticker: str) -> DataFrame:
@@ -73,9 +72,3 @@ def calculate_cumulative_return(df: DataFrame) -> DataFrame:
     df_copy.drop(pct_change_cols, axis=1, inplace=True)
 
     return df_copy
-
-
-
-
-
-

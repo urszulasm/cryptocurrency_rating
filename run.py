@@ -1,9 +1,8 @@
 from data_extraction import get_historical_data
 from data_processing import data_preprocessing, merge_dfs, calculate_pct_change, calculate_cumulative_return
-from data_analysis import visualize_absolut_price, visualize_daily_returns, visualize_cumulative_returns, \
-    visualize_cumulative_returns_checklist
+from data_visualization import visualize_absolut_price, visualize_daily_returns, visualize_cumulative_returns
 
-# Step 1 - BTC-USD and S&P 500 import
+# Step 1 - BTC-USD and S&P 500
 get_historical_data('BTC-USD')
 get_historical_data('ETH-USD')
 get_historical_data('SPX')
@@ -25,6 +24,3 @@ df_combined_cumulative = calculate_cumulative_return(df_combined_pct_change)
 visualize_absolut_price(df_combined)
 visualize_daily_returns(df_combined_pct_change)
 visualize_cumulative_returns(df_combined_cumulative)
-visualize_cumulative_returns_checklist(df_combined_cumulative)
-
-a = 1
